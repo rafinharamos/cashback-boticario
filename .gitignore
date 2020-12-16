@@ -1,0 +1,8 @@
+.idea
+*.sqlite3
+*pyc
+.cashback/
+__pycache__
+.env.example
+.env
+.sales/
