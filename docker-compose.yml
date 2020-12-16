@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:10.3
+    container_name: boticario_db
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cashback
+
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/boticario_app
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    environment:
+      - DEBUG=on
+      - ALLOWED_HOSTS=['*']
+      - SECRET_KEY=wpm)=THIS_IS_NOT_A_GOOD_SECRET
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/cashback
+      - EMAIL_HOST_USER=
+      - EMAIL_HOST_PASSWORD=
+      - EMAIL_HOST=
+      - DBBACKUP_S3_BUCKET=
+      - DBBACKUP_S3_ACCESS_KEY=
+      - DBBACKUP_S3_SECRET_KEY=
